@@ -1,12 +1,53 @@
 <section class="orders-show">
 
+
   <header class="page-header">
     <h1>Order #<%= @order.id %></h1>
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h4>Thank you for your order! </h4>
   </div>
+
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-info">
+        <%= msg %> <%= @order.email %>
+      </div>
+    <% end %>
+
+
+  <div class="panel panel-default items">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="2">Product</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @order.line_items.each do |line_item| %>
+      <% if @line_items.present? %>
+        <%= render 'item', product: line_item.product, quantity: line_item.quantity.to_i %>
+      <% else %>
+        <%= "Product not found" %>
+    <% end %>
+    <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4">
+          TOTAL:
+        </th>
+        <th>
+          <%= humanized_money_with_symbol cart_subtotal_cents / 100.0 %>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
