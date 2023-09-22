@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
 
   def show
+    flash.alert ="You have no items in your cart."
   end
 
   def add_item

@@ -4,6 +4,17 @@
     <h1>My Cart</h1>
   </header>
 
+  <% if enhanced_cart.size == 0 %>
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-info">
+        <%= msg %>
+        <a class=" button" href="<%= root_path %>">Back</a>
+      </div>
+    <% end %>
+  
+  <% end %>
+
+
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -31,6 +42,7 @@
       </tfoot>
     </table>
   </div>
+
 
   <div class="row">
     <div class="col-xs-12">
