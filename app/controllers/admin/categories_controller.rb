@@ -1,7 +1,7 @@
 class Admin::CategoriesController < ApplicationController
 
   def index
-    @categories 
+    @categories = Category.all
   end
 
   def new
@@ -18,17 +18,12 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
-  # private
+  private
 
-  # def product_params
-  #   params.require(:product).permit(
-  #     :name,
-  #     :description,
-  #     :category_id,
-  #     :quantity,
-  #     :image,
-  #     :price
-  #   )
-  # end
+  def category_params
+    params.require(:category).permit(
+      :name
+    )
+  end
 
 end
