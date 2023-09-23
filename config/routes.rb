@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root to: 'products#index'
 
+  get 'about' => 'about#show'
+  
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
 
@@ -18,7 +20,6 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :create, :new]
   end
 
-  get 'about' => 'about#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
