@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+<<<<<<< HEAD
   describe 'Validations' do
     it 'should require a first name' do
     end
@@ -20,4 +21,7 @@ RSpec.describe User, type: :model do
     end
   end
 
+=======
+  pending "add some examples to (or delete) #{__FILE__}"
+>>>>>>> master
 end
