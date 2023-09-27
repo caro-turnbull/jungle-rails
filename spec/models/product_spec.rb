@@ -11,9 +11,9 @@ RSpec.describe Product, type: :model do
     end
     it 'should validate price' do
       @category= Category.new(name: "categoryName")
-      @product = Product.new(name: "testName", price: , quantity: "1", category: @category)
+      @product = Product.new(name: "testName", price: nil , quantity: "1", category: @category)
       @product.save
-      expect(@product.errors.full_messages).to include ("Price can't be blank")
+      expect(@product.errors.full_messages).to include ("Price must be an integer")
     end
     it 'should validate quantity' do
       @category= Category.new(name: "categoryName")
