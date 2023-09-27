@@ -16,7 +16,8 @@ RSpec.describe User, type: :model do
     end
     it 'should having matching password and confirmation' do
     end
-
+    it 'should have a password with minimum length' do
+    end
   end
 
 end
