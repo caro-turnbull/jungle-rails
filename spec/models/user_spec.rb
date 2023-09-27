@@ -27,16 +27,39 @@ RSpec.describe User, type: :model do
       @user.save
       expect(@user.errors.full_messages).to include (/Password is too short/)
     end
+    it 'should having matching password and confirmation' do
+      @user = User.new(name: "Testing User", email: 'a@a.com', password: "a1b2c3", password_confirmation: "abcxyz")
+      @user.save
+      expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
+    end
   end
 
   describe '.authenticate_with_credentials' do
-    xit 'should having matching password and confirmation' do
+    before(:each) do 
+      @email = "a@a.com"
+      @password = "a1b2c3"
+      user = User.create(name:"Testing User", email: @email, password: @password, password_confirmation: @password)
     end
+
     xit 'should have unique email' do
+      @user1 = User.create(name: "Testing User1", email: 'a@a.com', password: "a1b2c3", password_confirmation: "a1b2c3")
+      @user1.save
+      @user2 = User.new(name: "Testing User2", email: 'a@a.com', password: "abcxyz", password_confirmation: "abcxyz")
+
+      expect(@user2.id).not_to be_present
+      expect(@user2.errors.full_messages).to include("has already been taken")
     end
-    xit 'should accept emails with incorrect case' do
+    it 'should accept emails with incorrect case' do
+      @user = User.authenticate_with_credentials("A@a.COM", @password)
+      expect(@user).to be_a(User)
     end
-    xit 'should ignore spaces in email addresses' do
+    it 'should ignore spaces in email addresses' do
+      @user = User.authenticate_with_credentials("  a@a.com  ", @password)
+      expect(@user).to be_a(User)
+    end
+    it "should not allow an invalid password" do
+      user = User.authenticate_with_credentials(@email, "123abc")
+      expect(user).to eq(nil)
     end
    
   end
